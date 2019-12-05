@@ -1,0 +1,91 @@
+require_relative 'Controlador'
+require_relative 'Factoria'
+require_relative 'Condominio'
+
+class Vista
+  def mostrarMensajeRegistroPropietario(registro_propietario)
+    puts registro_propietario 
+  end
+
+ def mostrarMensajeVivienda(registro_vivienda)
+    puts registro_vivienda
+  end
+
+  def registrarViviendaPropietario(registrarViviendaPropietario)
+    puts registrarViviendaPropietario    
+  end
+
+  def registrarServicio(registrarServicio)
+    puts registrarServicio
+  end
+
+  def registrarRecibo(registrarRecibo)
+    puts registrarRecibo
+  end
+
+  def registrarVisitante(registrarVisitante)
+    puts registrarVisitante
+  end
+
+  def mostrarMensajeVivienda(registro_recibo)
+    puts registro_recibo
+  end
+
+  def mostrarRegistroEmpadronado(mostrarRegistroEmpadronado)
+    puts mostrarRegistroEmpadronado    
+  end
+
+  def mostrarRegistroVisitas(registro_visita)
+    puts registro_visita  
+  end
+
+  def registrarVisitanteEnVisita(registrarVisitanteEnVisita)
+    puts registrarVisitanteEnVisita    
+  end
+
+  def mostrarRegistrarPagoRecibo(registrarPagoRecibo)
+    puts registrarPagoRecibo    
+  end
+
+  def mostrarConsultarPagoRecibos(consultarPagoRecibos)
+    puts consultarPagoRecibos    
+  end
+
+  def mostrarConsultarDeudores(consultarDeudores)
+    puts consultarDeudores    
+  end
+
+  def mostrarConsultarVisita(consultarVisita)
+    puts consultarVisita
+  end
+
+  def imprimirListaHabitantes(array_habitantes)
+    for p in array_habitantes
+      puts p.muestraDatos
+    end    
+  end
+end
+
+
+  @admin = Condominio.new('VILLA SOL', 'AV POO 123')
+  @vista = Vista.new
+  @controlador = Controlador.new(@vista,@admin)
+  @controlador.registrarVivienda('vivienda','A-01',10,90.00)
+  @controlador.registrarVivienda('vivienda','A-01',10,90.00)
+  @controlador.registrarVivienda('vivienda','A-02',6,110.00) # numero_departamento, piso, metros_cuadrados
+  @controlador.registrarPropietario("propietario",'89898989',"Paolo","Sanchez",20) #(dni, nombre, apellido, edad)
+  @controlador.registrarPropietario("propietario",'43698978',"Nick","Perez",17)
+  @controlador.registrarViviendaPropietario('89898989','A-01')
+  @controlador.registrarServicio('89898989','servicio','SERAGUA', 'AGUA') #dni_propietario, servicio, idservicio, nombre_servicio
+  @controlador.registrarRecibo('AGUA', '89898989','recibo','COD10101', '01/11/2019', 200.00, 120, 'Watts', '') #codigo_recibo_servicio, fecha_recibo, monto, consumo, unidad, fecha_pago
+  @controlador.registrarVisitante('89898989','visitante','47888515', 'Mario', 'Yllisca', 25)
+  @controlador.registrarVisita('89898989', 'visita', 1, '01/11/2019', '02/11/2019', '03/11/2019', 'Fiesta Familiar')
+  @controlador.registrarEmpadronado('89898989', 'empadronado', '12345', 'raul','Nadie', 55, 'Padre',0) #dni, nombre, apellido, edad, parentezco, co_propietario
+  @controlador.registrarVisitanteEnVisita('89898989', 1, '47888515', '213213') #dni_propietario, visita, *arg
+  @controlador.registrarPagoRecibo('89898989','COD10101', 200.00)
+  @controlador.consultarVisita('DNI', '89898989') #tipo, #fecha, #dni, #habitacion
+  @controlador.consultarPagoRecibos('HABITACION', 'A-01') #tipo, dato
+  @controlador.consultarDeudores
+  @controlador.consultarVisita('rango','02/11/2019', '05/11/2019')
+  @controlador.consultarVisita('dni','47888515')
+  @controlador.consultarVisita('habitacion','A-01')
