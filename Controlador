@@ -1,0 +1,97 @@
+require_relative 'Factoria'
+
+class Controlador
+  attr_accessor :vista, :condominio
+  def initialize(vista, condominio)
+    @vista = vista
+    @condominio = condominio
+  end
+
+  def registrarPropietario(tipo,*arg)
+    propietario = Factoria.dameobjeto(tipo,*arg)
+    begin
+      registro_propietario = condominio.registrarPropietario(propietario)
+      vista.mostrarMensajeRegistroPropietario(registro_propietario)
+    rescue Exception => e
+      vista.mostrarMensajeRegistroPropietario(e.message)
+    end
+  end
+
+  def registrarViviendaPropietario(propietario, vivienda)
+    registrarViviendaPropietario = condominio.registrarViviendaPropietario(propietario, vivienda)
+    vista.registrarViviendaPropietario(registrarViviendaPropietario)
+  end
+
+  def registrarVivienda(tipo,*arg)
+    vivienda = Factoria.dameobjeto(tipo,*arg)
+    begin
+      registro_vivienda = condominio.registrarVivienda(vivienda)
+      vista.mostrarMensajeVivienda(registro_vivienda)
+    rescue Exception => e
+      vista.mostrarMensajeVivienda(e.message)
+    end
+  end
+
+  def registrarServicio(dni_propietario, tipo,*arg)
+    servicio = Factoria.dameobjeto(tipo,*arg)
+    registrarServicio = condominio.registrarServicio(dni_propietario, servicio)
+    vista.registrarServicio(registrarServicio)
+  end
+
+  def registrarRecibo(nombre_servicio, dni_propietario, tipo,*arg)
+    recibo = Factoria.dameobjeto(tipo,*arg)
+    registrarRecibo = condominio.registrarRecibo(nombre_servicio, dni_propietario, recibo)
+    vista.registrarRecibo(registrarRecibo)
+  end
+
+  def registrarVisitanteEnVisita(dni_propietario, visita, *arg)
+    visitantes = condominio.validarVisitante(dni_propietario,*arg)
+    registrarVisitanteEnVisita = condominio.registrarVisitanteEnVisita(dni_propietario, visitantes, visita)
+    vista.registrarVisitanteEnVisita(registrarVisitanteEnVisita)
+  end
+
+  def registrarVisita(dni_propietario, tipo,*arg)
+    visita = Factoria.dameobjeto(tipo,*arg)
+    condominio.registrarVisita(dni_propietario, visita)
+  end
+
+  def registrarVisitante(dni_propietario, tipo,*arg)
+    visitante = Factoria.dameobjeto(tipo,*arg)
+    registrarVisitante = condominio.registrarVisitante(dni_propietario, visitante)
+    vista.registrarVisitante(registrarVisitante)
+  end
+
+  def registrarEmpadronado(dni_propietario, tipo,*arg)
+    empadronado = Factoria.dameobjeto(tipo,*arg)
+    registrarEmpadronado = condominio.registrarEmpadronado(dni_propietario, empadronado)
+    vista.mostrarRegistroEmpadronado(registrarEmpadronado)
+  end
+
+  def registrarPagoRecibo(dni_propietario, codigo_recibo_servicio, monto)
+    registrarPagoRecibo = condominio.registrarPagoRecibo(dni_propietario, codigo_recibo_servicio, monto)
+    vista.mostrarRegistrarPagoRecibo(registrarPagoRecibo)
+  end
+
+  def consultarVisita(p_criterio_busqueda, *arg)
+    consultarVisita = condominio.consultarVisita(p_criterio_busqueda, *arg)
+    vista.mostrarConsultarVisita(consultarVisita)
+  end
+
+  def consultarDeudores
+    consultarDeudores = condominio.consultarDeudores
+    vista.mostrarConsultarDeudores(consultarDeudores)
+  end
+
+  def consultarPagoRecibos(tipo, dato)
+    consultarPagoRecibos = condominio.consultarPagoRecibos(tipo, dato)
+    vista.mostrarConsultarPagoRecibos(consultarPagoRecibos)
+  end
+
+
+  def obtener_lista_habitantes(tipo)
+    puts "Lista de habitantes de la vivienda #{vivienda.numero_departamento}"
+    array_habitantes = condominio.obtener_lista_habitantes(tipo)
+    vista.imprimir_lista_habitantes(array_habitantes)
+    puts "-------------------------------------------------------------------" 
+  end
+end
