@@ -1,0 +1,22 @@
+require_relative 'Controlador'
+
+class Factoria
+  def self.dameobjeto(tipo,*arg)
+    case tipo
+      when 'vivienda'
+        return Vivienda.new(arg[0],arg[1],arg[2])
+      when 'visitante'
+        return Visitante.new(arg[0],arg[1],arg[2], arg[3])
+      when 'empadronado'
+        return Empadronado.new(arg[0],arg[1],arg[2],arg[3],arg[4],arg[5])
+      when 'propietario'
+        return Propietario.new(arg[0],arg[1],arg[2],arg[3])
+      when 'recibo'
+        return Recibo.new(arg[0],arg[1],arg[2],arg[3],arg[4],arg[5])
+      when 'visita'
+        return Visita.new(arg[0],arg[1],arg[2],arg[3],arg[4])
+      when 'servicio'
+        return Servicio.new(arg[0],arg[1])
+    end
+  end
+end
